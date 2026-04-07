@@ -108,12 +108,14 @@ export default function TexDemo() {
 
           {/* ── HERO HEADER ── */}
           <header className="mb-5 border-b border-white/8 pb-5">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-cyan-300/70">
-                  {APP_SUBLABEL}
-                </p>
-                <div className="mt-2 flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-cyan-300/70">
+                    {APP_SUBLABEL}
+                  </p>
+                </div>
+                <div className="mt-2 flex flex-wrap items-center gap-4">
                   <h1 className="font-mono text-3xl font-extrabold uppercase tracking-[0.38em] text-white sm:text-4xl">
                     {APP_NAME}
                   </h1>
@@ -121,29 +123,41 @@ export default function TexDemo() {
                     AI Action Gate
                   </div>
                 </div>
-                <p className="mt-3 max-w-2xl font-mono text-sm leading-7 text-zinc-300">
-                  {APP_TAGLINE}. Tex permits, blocks, or escalates every AI
-                  action before it reaches the real world.
+                <p className="mt-3 max-w-xl font-mono text-lg font-semibold leading-8 text-white/90 sm:text-xl">
+                  {APP_TAGLINE}
+                </p>
+                <p className="mt-2 max-w-2xl font-mono text-xs leading-6 text-zinc-400">
+                  Every AI action — emails, API calls, Slack messages, database
+                  queries, deployments — is evaluated in real time before it
+                  executes. Tex permits, blocks, or escalates.
                 </p>
               </div>
 
-              {/* Capability pills - desktop */}
-              <div className="hidden gap-2 lg:flex">
-                {[
-                  { icon: Zap, text: "Real-time" },
-                  { icon: Eye, text: "Content-aware" },
-                  { icon: Lock, text: "Auditable" },
-                ].map((item) => (
-                  <div
-                    key={item.text}
-                    className="flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.03] px-3 py-1.5"
-                  >
-                    <item.icon className="h-3.5 w-3.5 text-cyan-300/70" />
-                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-300">
-                      {item.text}
-                    </span>
-                  </div>
-                ))}
+              {/* Capability badges + live status */}
+              <div className="flex flex-col items-start gap-3 lg:items-end">
+                <div className="flex gap-2 flex-wrap">
+                  {[
+                    { icon: Zap, text: "Real-time" },
+                    { icon: Eye, text: "Content-aware" },
+                    { icon: Lock, text: "Auditable" },
+                  ].map((item) => (
+                    <div
+                      key={item.text}
+                      className="flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.03] px-3 py-1.5"
+                    >
+                      <item.icon className="h-3.5 w-3.5 text-cyan-300/70" />
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-300">
+                        {item.text}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/8 px-3 py-1.5">
+                  <div className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)] animate-pulse" />
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-300">
+                    System Active
+                  </span>
+                </div>
               </div>
             </div>
           </header>

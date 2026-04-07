@@ -10,11 +10,11 @@ import {
 import { SURFACE_CLASSES } from "../lib/constants";
 
 const ACTION_TYPES = [
-  { label: "Email", value: "outbound_email", icon: Mail },
-  { label: "API", value: "api_call", icon: Server },
-  { label: "Slack", value: "slack_message", icon: MessageSquare },
-  { label: "Database", value: "database_query", icon: Database },
-  { label: "Deploy", value: "code_deployment", icon: Code2 },
+  { label: "Email", value: "outbound_email", icon: Mail, desc: "Outbound message" },
+  { label: "API Call", value: "api_call", icon: Server, desc: "External request" },
+  { label: "Slack", value: "slack_message", icon: MessageSquare, desc: "Channel message" },
+  { label: "Database", value: "database_query", icon: Database, desc: "Query or mutation" },
+  { label: "Deploy", value: "code_deployment", icon: Code2, desc: "Code release" },
 ];
 
 export default function InputPanel({
@@ -32,9 +32,9 @@ export default function InputPanel({
       {/* Header */}
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className={SURFACE_CLASSES.label}>What is your AI agent about to do?</p>
+          <p className={SURFACE_CLASSES.label}>Intercept Point</p>
           <h2 className="mt-1.5 font-mono text-base font-semibold uppercase tracking-[0.12em] text-white sm:text-lg">
-            Agent Output
+            What is your AI agent about to send?
           </h2>
         </div>
       </div>
@@ -52,12 +52,12 @@ export default function InputPanel({
         />
       </div>
 
-      {/* Action type selector — compact row */}
-      <div className="mt-4">
-        <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/70 mb-2">
-          Action Type
+      {/* Action type selector — visible card grid */}
+      <div className="mt-5">
+        <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/70 mb-2.5">
+          What type of action is this?
         </p>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
           {ACTION_TYPES.map((item) => {
             const Icon = item.icon;
             const isActive = form.action_type === item.value;
@@ -68,14 +68,30 @@ export default function InputPanel({
                 type="button"
                 onClick={() => onChange?.("action_type", item.value)}
                 className={[
-                  "flex items-center gap-2 rounded-xl border px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] transition-all duration-200",
+                  "group flex flex-col items-center gap-1.5 rounded-2xl border px-3 py-3.5 text-center transition-all duration-200",
+                  "focus:outline-none focus:ring-2 focus:ring-cyan-400/30",
                   isActive
-                    ? "border-cyan-400/40 bg-cyan-400/14 text-cyan-100 shadow-[0_0_20px_rgba(0,212,170,0.1)]"
-                    : "border-white/10 bg-black/30 text-zinc-400 hover:border-cyan-400/20 hover:text-zinc-200",
+                    ? "border-cyan-400/40 bg-cyan-400/14 text-cyan-100 shadow-[0_0_28px_rgba(0,212,170,0.12)]"
+                    : "border-white/10 bg-black/30 text-zinc-400 hover:border-cyan-400/20 hover:bg-black/40 hover:text-zinc-200",
                 ].join(" ")}
+                aria-pressed={isActive}
               >
-                <Icon className="h-3.5 w-3.5" />
-                {item.label}
+                <div
+                  className={[
+                    "flex h-9 w-9 items-center justify-center rounded-xl border transition-all duration-200",
+                    isActive
+                      ? "border-cyan-400/30 bg-cyan-400/12 text-cyan-100"
+                      : "border-white/10 bg-black/20 text-zinc-400 group-hover:text-cyan-200",
+                  ].join(" ")}
+                >
+                  <Icon className="h-4.5 w-4.5" />
+                </div>
+                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.08em]">
+                  {item.label}
+                </p>
+                <p className="font-mono text-[9px] leading-tight text-zinc-500 group-hover:text-zinc-400">
+                  {item.desc}
+                </p>
               </button>
             );
           })}
