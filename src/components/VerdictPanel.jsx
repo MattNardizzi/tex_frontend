@@ -194,18 +194,18 @@ export default function VerdictPanel({
       {/* Glow background */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_28%)]" />
 
-      <div className="relative">
+      <div className="relative min-w-0">
         {/* Verdict headline */}
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-black/20 sm:h-16 sm:w-16">
-              <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
+        <div className="flex items-start gap-3 sm:gap-4">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-black/20 sm:h-14 sm:w-14">
+              <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/60">
                 Tex Verdict
               </p>
-              <div className="font-mono text-3xl font-extrabold uppercase tracking-[0.28em] text-white sm:text-4xl">
+              <div className="font-mono text-2xl font-extrabold uppercase tracking-[0.18em] text-white sm:text-3xl lg:text-4xl">
                 {meta.label}
               </div>
             </div>

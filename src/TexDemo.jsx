@@ -178,7 +178,7 @@ export default function TexDemo() {
           ) : null}
 
           {/* ── MAIN GRID: Input + Verdict ── */}
-          <section className="mt-5 grid gap-5 lg:grid-cols-[1fr_1fr]">
+          <section className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
             <InputPanel
               form={form}
               onChange={handleFormChange}
