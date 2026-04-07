@@ -1,5 +1,6 @@
 export const APP_NAME = "TEX";
-export const APP_SUBLABEL = "LAST-MILE CONTENT INTELLIGENCE";
+export const APP_TAGLINE = "The gate between AI and the real world";
+export const APP_SUBLABEL = "BY VORTEXBLACK";
 export const POLICY_VERSION = "default-v1";
 
 export const MODES = {
@@ -26,10 +27,10 @@ export const DEFAULT_FORM_STATE = {
 export const DEMO_SCENARIOS = [
   {
     id: "clean-internal-message",
-    title: "Clean Internal Message",
+    title: "Safe Team Message",
     expectedVerdict: "PERMIT",
     description:
-      "Low-risk internal coordination message in a non-production collaboration channel.",
+      "A routine internal message with no sensitive data or external exposure.",
     action_type: "slack_message",
     channel: "slack",
     environment: "staging",
@@ -39,10 +40,10 @@ export const DEMO_SCENARIOS = [
   },
   {
     id: "data-exfiltration",
-    title: "Data Exfiltration",
+    title: "Customer Data Leak",
     expectedVerdict: "FORBID",
     description:
-      "Sensitive business data plus a credential leak aimed at an external recipient.",
+      "Sensitive customer data and a password sent to an outside email.",
     action_type: "outbound_email",
     channel: "email",
     environment: "production",
@@ -52,10 +53,10 @@ export const DEMO_SCENARIOS = [
   },
   {
     id: "risky-commitment",
-    title: "Risky Commitment",
+    title: "Unauthorized Promise",
     expectedVerdict: "ABSTAIN",
     description:
-      "Commercial commitment language mixed with customer-facing delivery risk.",
+      "The agent makes a guarantee it isn't authorized to make.",
     action_type: "outbound_email",
     channel: "email",
     environment: "production",
@@ -65,10 +66,10 @@ export const DEMO_SCENARIOS = [
   },
   {
     id: "destructive-query",
-    title: "Destructive Query",
+    title: "Database Wipe",
     expectedVerdict: "FORBID",
     description:
-      "Production database action with destructive intent and no safe review path.",
+      "A mass-delete command aimed at live production data.",
     action_type: "database_query",
     channel: "api",
     environment: "production",
@@ -80,45 +81,33 @@ export const DEMO_SCENARIOS = [
 export const PIPELINE_LAYERS = [
   {
     key: "deterministic",
-    title: "Deterministic Gate",
-    shortTitle: "Layer 1",
-    description:
-      "Fast recognizers scan the outbound action for high-signal policy violations, credentials, PII, destructive intent, and blocked terms.",
+    title: "Pattern Scan",
+    description: "Scans for passwords, credentials, PII, blocked terms, and destructive commands.",
   },
   {
     key: "retrieval",
-    title: "Retrieval Grounding",
-    shortTitle: "Layer 2",
-    description:
-      "Tex grounds the decision against policy-linked entities, matched clauses, and retrieval warnings before semantic judgment.",
+    title: "Policy Lookup",
+    description: "Checks the action against your organization's policies and known entities.",
   },
   {
     key: "specialists",
-    title: "Specialist Judges",
-    shortTitle: "Layer 3",
-    description:
-      "Domain-focused judges score secret exposure, external sharing, unauthorized commitment, and destructive or bypass behavior.",
+    title: "Risk Judges",
+    description: "Specialized judges score secrets exposure, data sharing, unauthorized commitments, and destructive intent.",
   },
   {
     key: "semantic",
-    title: "Semantic Analysis",
-    shortTitle: "Layer 4",
-    description:
-      "Heuristic semantic scoring evaluates policy compliance, leakage risk, external release risk, commitment risk, and bypass risk.",
+    title: "Content Intelligence",
+    description: "AI-powered analysis of what the agent is actually saying — scoring intent and risk.",
   },
   {
     key: "router",
-    title: "Router & Fusion",
-    shortTitle: "Layer 5",
-    description:
-      "Tex fuses deterministic, specialist, semantic, and criticality signals into one final score, confidence value, and verdict.",
+    title: "Final Decision",
+    description: "Fuses all signals into one score, confidence level, and verdict.",
   },
   {
     key: "evidence",
-    title: "Evidence Chain",
-    shortTitle: "Layer 6",
-    description:
-      "Every decision is anchored to an evidence record with a chain state and exportable audit footprint.",
+    title: "Audit Trail",
+    description: "Cryptographic evidence chain anchoring every decision for compliance.",
   },
 ];
 
@@ -175,30 +164,36 @@ export const POLICY = {
 
 export const VERDICT_META = {
   PERMIT: {
-    label: "PERMIT",
+    label: "PERMITTED",
+    humanLabel: "Safe to Send",
     accentClass:
       "border-emerald-500/40 bg-emerald-500/10 text-emerald-300 shadow-[0_0_35px_rgba(16,185,129,0.18)]",
     badgeClass:
       "border border-emerald-400/30 bg-emerald-500/10 text-emerald-300",
     ringClass: "ring-1 ring-emerald-400/30",
     glowClass: "shadow-[0_0_80px_rgba(16,185,129,0.12)]",
+    color: "#10b981",
   },
   ABSTAIN: {
-    label: "ABSTAIN",
+    label: "REVIEW",
+    humanLabel: "Needs Human Review",
     accentClass:
       "border-amber-500/40 bg-amber-500/10 text-amber-200 shadow-[0_0_35px_rgba(245,158,11,0.18)]",
     badgeClass:
       "border border-amber-400/30 bg-amber-500/10 text-amber-200",
     ringClass: "ring-1 ring-amber-400/30",
     glowClass: "shadow-[0_0_80px_rgba(245,158,11,0.12)]",
+    color: "#f59e0b",
   },
   FORBID: {
-    label: "FORBID",
+    label: "BLOCKED",
+    humanLabel: "Blocked",
     accentClass:
       "border-rose-500/40 bg-rose-500/10 text-rose-300 shadow-[0_0_35px_rgba(244,63,94,0.18)]",
     badgeClass: "border border-rose-400/30 bg-rose-500/10 text-rose-300",
     ringClass: "ring-1 ring-rose-400/30",
     glowClass: "shadow-[0_0_80px_rgba(244,63,94,0.12)]",
+    color: "#f43f5e",
   },
 };
 
@@ -209,8 +204,7 @@ export const SEVERITY_META = {
   },
   WARNING: {
     label: "WARNING",
-    className:
-      "border border-amber-400/20 bg-amber-400/10 text-amber-200",
+    className: "border border-amber-400/20 bg-amber-400/10 text-amber-200",
   },
   CRITICAL: {
     label: "CRITICAL",
