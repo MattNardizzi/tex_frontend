@@ -1,9 +1,7 @@
 import React, { useMemo, useRef, useState } from "react";
-import ModeToggle from "./components/ModeToggle";
 import ScenarioCards from "./components/ScenarioCards";
 import ActionInputPanel from "./components/ActionInputPanel";
 import DecisionPanel from "./components/DecisionPanel";
-import { evaluateStandalone } from "./lib/texEngine";
 import { evaluateViaApi } from "./lib/apiClient";
 import {
   APP_NAME,
@@ -17,31 +15,25 @@ import {
 } from "./lib/constants";
 
 export default function TexDemo() {
-  const [mode, setMode] = useState(MODES.STANDALONE);
+  const mode = MODES.API;
   const [form, setForm] = useState({ ...DEFAULT_FORM_STATE });
   const [decision, setDecision] = useState({
     ...EMPTY_DECISION_STATE,
-    mode: MODES.STANDALONE,
+    mode: MODES.API,
   });
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const activeRunRef = useRef(0);
 
-  function buildEmptyDecision(nextMode = mode) {
+  function buildEmptyDecision() {
     return {
       ...EMPTY_DECISION_STATE,
-      mode: nextMode,
+      mode: MODES.API,
     };
   }
 
-  function resetDecision(nextMode = mode) {
-    setDecision(buildEmptyDecision(nextMode));
-  }
-
-  function handleModeChange(nextMode) {
-    setMode(nextMode);
-    resetDecision(nextMode);
-    setErrorMessage("");
+  function resetDecision() {
+    setDecision(buildEmptyDecision());
   }
 
   function handleFormChange(name, value) {
@@ -61,7 +53,7 @@ export default function TexDemo() {
       content: scenario.content,
     });
 
-    resetDecision(mode);
+    resetDecision();
     setErrorMessage("");
   }
 
@@ -75,10 +67,7 @@ export default function TexDemo() {
     setErrorMessage("");
 
     try {
-      const result =
-        mode === MODES.API
-          ? await evaluateViaApi(form)
-          : evaluateStandalone(form);
+      const result = await evaluateViaApi(form);
 
       if (activeRunRef.current !== runId) return;
 
@@ -89,7 +78,7 @@ export default function TexDemo() {
     } catch (error) {
       if (activeRunRef.current !== runId) return;
 
-      resetDecision(mode);
+      resetDecision();
       setErrorMessage(
         error instanceof Error
           ? error.message
@@ -112,8 +101,6 @@ export default function TexDemo() {
         scenario.content === form.content
     );
   }, [form]);
-
-  const modeLabel = mode === MODES.STANDALONE ? "Standalone" : "API";
 
   return (
     <div className={SURFACE_CLASSES.page}>
@@ -178,11 +165,11 @@ export default function TexDemo() {
             </div>
 
             <div className="flex flex-col items-start gap-3 lg:items-end">
-              <ModeToggle mode={mode} onChange={handleModeChange} />
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-                Current mode:{" "}
-                <span className="text-cyan-200">{modeLabel}</span>
-              </p>
+              <div className="inline-flex items-center gap-2 rounded-2xl border border-cyan-400/15 bg-white/[0.04] px-4 py-2 shadow-[0_0_30px_rgba(0,212,170,0.06)] backdrop-blur-md">
+                <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-200">
+                  Live API
+                </span>
+              </div>
             </div>
           </header>
 
