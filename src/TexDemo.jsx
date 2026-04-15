@@ -99,7 +99,7 @@ export default function TexDemo() {
     <div className={SURFACE_CLASSES.page}>
       <style>{FONT_IMPORT_CSS}</style>
 
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-x-clip">
         {/* Background effects */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,212,170,0.11),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.09),transparent_24%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:32px_32px]" />
