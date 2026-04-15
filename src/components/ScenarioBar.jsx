@@ -44,43 +44,47 @@ export default function ScenarioBar({ scenarios, onSelect }) {
         </div>
       </div>
 
-      <div className="mt-2 flex gap-2.5 overflow-x-auto pb-2 pr-4 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {scenarios.map((s) => {
-          const ActionIcon = getActionIcon(s.action_type);
-          const VerdictIcon = getVerdictIcon(s.expectedVerdict);
-          const meta = VERDICT_META[s.expectedVerdict] || VERDICT_META.ABSTAIN;
+      <div className="-mx-4 mt-2 sm:-mx-6 lg:-mx-8">
+        <div className="flex gap-2.5 overflow-x-auto px-4 pb-2 sm:px-6 lg:px-8 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {scenarios.map((s) => {
+            const ActionIcon = getActionIcon(s.action_type);
+            const VerdictIcon = getVerdictIcon(s.expectedVerdict);
+            const meta = VERDICT_META[s.expectedVerdict] || VERDICT_META.ABSTAIN;
 
-          return (
-            <button
-              key={s.id}
-              type="button"
-              onClick={() => onSelect?.(s)}
-              className="group flex shrink-0 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-left transition-all duration-200 hover:border-cyan-400/25 hover:bg-white/[0.06] hover:shadow-[0_0_24px_rgba(0,212,170,0.08)] active:scale-[0.98]"
-            >
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black/30 text-cyan-200 transition group-hover:border-cyan-400/20">
-                <ActionIcon className="h-4 w-4" />
-              </div>
-              <div className="min-w-0">
-                <p className="font-mono text-xs font-semibold uppercase tracking-[0.06em] text-white">
-                  {s.title}
-                </p>
-                <p className="mt-0.5 font-mono text-[10px] text-zinc-400 max-w-[180px] truncate">
-                  {s.description}
-                </p>
-              </div>
-              <div
-                className={[
-                  "ml-1 flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5",
-                  "font-mono text-[9px] font-semibold uppercase tracking-[0.14em]",
-                  meta.badgeClass,
-                ].join(" ")}
+            return (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => onSelect?.(s)}
+                className="group flex shrink-0 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-left transition-all duration-200 hover:border-cyan-400/25 hover:bg-white/[0.06] hover:shadow-[0_0_24px_rgba(0,212,170,0.08)] active:scale-[0.98]"
               >
-                <VerdictIcon className="h-3 w-3" />
-                {meta.label}
-              </div>
-            </button>
-          );
-        })}
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black/30 text-cyan-200 transition group-hover:border-cyan-400/20">
+                  <ActionIcon className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-mono text-xs font-semibold uppercase tracking-[0.06em] text-white">
+                    {s.title}
+                  </p>
+                  <p className="mt-0.5 font-mono text-[10px] text-zinc-400 max-w-[180px] truncate">
+                    {s.description}
+                  </p>
+                </div>
+                <div
+                  className={[
+                    "ml-1 flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5",
+                    "font-mono text-[9px] font-semibold uppercase tracking-[0.14em]",
+                    meta.badgeClass,
+                  ].join(" ")}
+                >
+                  <VerdictIcon className="h-3 w-3" />
+                  {meta.label}
+                </div>
+              </button>
+            );
+          })}
+          {/* Invisible spacer so the last card is not clipped at scroll edge */}
+          <div className="shrink-0 w-4 sm:w-6 lg:w-8" aria-hidden="true" />
+        </div>
       </div>
     </div>
   );
