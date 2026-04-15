@@ -44,7 +44,7 @@ export default function ScenarioBar({ scenarios, onSelect }) {
         </div>
       </div>
 
-      <div className="mt-2 flex gap-2.5 overflow-x-auto pb-2 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="mt-2 flex gap-2.5 overflow-x-auto pb-2 pr-4 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {scenarios.map((s) => {
           const ActionIcon = getActionIcon(s.action_type);
           const VerdictIcon = getVerdictIcon(s.expectedVerdict);
